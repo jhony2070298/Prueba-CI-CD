@@ -138,6 +138,10 @@
           {
             "name": "Promedio Edad",
             "expression": " AVERAGE(GH_Empleados[Edad])"
+          },
+          {
+            "name": "Total Hijos",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
           }
         ],
         "annotations": [
