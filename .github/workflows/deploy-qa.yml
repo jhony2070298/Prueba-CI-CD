@@ -8,16 +8,45 @@ jobs:
   deploy-qa:
     runs-on: self-hosted
     steps:
+
+      # Fix EBUSY: limpiar directorio temp antes del checkout
+      - name: Limpiar workspace anterior
+        shell: powershell
+        run: |
+          if (Test-Path "C:\actions-runner\_work\_temp") {
+            Get-Process | Where-Object { $_.Path -like "C:\actions-runner*" -and $_.Name -ne "Runner.Worker" } | Stop-Process -Force -ErrorAction SilentlyContinue
+            Remove-Item "C:\actions-runner\_work\_temp\*" -Recurse -Force -ErrorAction SilentlyContinue
+          }
+
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          clean: false
+          persist-credentials: false
+
+      - name: Verificar Model.bim
+        shell: powershell
+        run: |
+          $bim = Get-ChildItem $env:GITHUB_WORKSPACE -Filter 'Model.bim' -ErrorAction SilentlyContinue
+          if (-not $bim) { throw "Model.bim no encontrado en $env:GITHUB_WORKSPACE" }
+          Write-Host "Model.bim encontrado: $($bim.FullName)"
 
       - name: Deploy to QA
         shell: powershell
         run: |
-          $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
-          $server = "${{ secrets.QA_SERVER }}"
-          $db = "${{ secrets.QA_DB_NAME }}"
-          New-Item -Path "C:\deploy" -ItemType Directory -Force
-          Copy-Item "$env:GITHUB_WORKSPACE\Model.bim" "C:\deploy\Model.bim" -Force
-          & $te "C:\deploy\Model.bim" -deploy $server $db -O -C -P
+          $te     = 'C:\Program Files (x86)\Tabular Editor\TabularEditor.exe'
+          $server = '${{ secrets.QA_SERVER }}'
+          $db     = '${{ secrets.QA_DB_NAME }}'
+
+          # Verificar que Tabular Editor existe
+          if (-not (Test-Path $te)) { throw "Tabular Editor no encontrado en $te" }
+
+          # Copiar a ruta corta (evita errores por rutas largas)
+          New-Item -Path 'C:\deploy' -ItemType Directory -Force | Out-Null
+          Copy-Item "$env:GITHUB_WORKSPACE\Model.bim" 'C:\deploy\Model.bim' -Force
+
+          # Desplegar
+          & $te 'C:\deploy\Model.bim' -deploy $server $db -O -C -P
+
+          if ($LASTEXITCODE -ne 0) { throw "Tabular Editor falló con código $LASTEXITCODE" }
           Write-Host "Deploy a QA exitoso"
