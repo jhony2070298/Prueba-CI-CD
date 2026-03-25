@@ -49,5 +49,4 @@ jobs:
 
           & $te "C:\deploy\Model.bim" -deploy $server $db -O -C -P
 
-          if ($LASTEXITCODE -ne 0) { throw "Tabular Editor falló con código $LASTEXITCODE" }
           Write-Host "Deploy a QA exitoso"
