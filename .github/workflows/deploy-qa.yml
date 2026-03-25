@@ -8,11 +8,6 @@ jobs:
   deploy-qa:
     runs-on: self-hosted
     steps:
-      - name: Limpiar workspace
-        shell: cmd
-        run: |
-          if exist "%GITHUB_WORKSPACE%" rd /s /q "%GITHUB_WORKSPACE%"
-
       - name: Checkout
         uses: actions/checkout@v4
 
