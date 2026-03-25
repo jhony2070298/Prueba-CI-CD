@@ -134,6 +134,12 @@
             }
           }
         ],
+        "measures": [
+          {
+            "name": "Promedio Edad",
+            "expression": " AVERAGE(GH_Empleados[Edad])"
+          }
+        ],
         "annotations": [
           {
             "name": "_TM_ExtProp_QueryDefinition",
