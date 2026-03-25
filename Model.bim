@@ -162,6 +162,10 @@
           {
             "name": "Total Hijos 6",
             "expression": " SUM(GH_Empleados[NumeroHijos])"
+          },
+          {
+            "name": "Total Hijos 7",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
           }
         ],
         "annotations": [
