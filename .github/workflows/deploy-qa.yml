@@ -34,7 +34,7 @@ jobs:
         run: |
           $bim = "C:\deploy\Prueba-CI-CD\Model.bim"
           if (-not (Test-Path $bim)) { throw "Model.bim no encontrado" }
-          Write-Host "Model.bim OK — $(Get-Item $bim | Select-Object -ExpandProperty LastWriteTime)"
+          Write-Host "Model.bim encontrado OK"
 
       - name: Deploy to QA
         shell: powershell
