@@ -9,12 +9,9 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Limpiar workspace
-        shell: powershell
+        shell: cmd
         run: |
-          if (Test-Path "$env:GITHUB_WORKSPACE") {
-            Get-Process | Where-Object {$_.Path -like "*$env:GITHUB_WORKSPACE*"} | Stop-Process -Force -ErrorAction SilentlyContinue
-            Remove-Item "$env:GITHUB_WORKSPACE\*" -Recurse -Force -ErrorAction SilentlyContinue
-          }
+          if exist "%GITHUB_WORKSPACE%" rd /s /q "%GITHUB_WORKSPACE%"
 
       - name: Checkout
         uses: actions/checkout@v4
