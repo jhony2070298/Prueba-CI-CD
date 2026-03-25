@@ -8,6 +8,14 @@ jobs:
   deploy-qa:
     runs-on: self-hosted
     steps:
+      - name: Limpiar workspace
+        shell: powershell
+        run: |
+          if (Test-Path "$env:GITHUB_WORKSPACE") {
+            Get-Process | Where-Object {$_.Path -like "*$env:GITHUB_WORKSPACE*"} | Stop-Process -Force -ErrorAction SilentlyContinue
+            Remove-Item "$env:GITHUB_WORKSPACE\*" -Recurse -Force -ErrorAction SilentlyContinue
+          }
+
       - name: Checkout
         uses: actions/checkout@v4
 
