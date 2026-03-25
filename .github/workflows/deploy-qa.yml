@@ -1,0 +1,23 @@
+name: Deploy to QA
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deploy-qa:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to QA
+        shell: powershell
+        run: |
+          $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
+          $server = "${{ secrets.QA_SERVER }}"
+          $db = "${{ secrets.QA_DB_NAME }}"
+          New-Item -Path "C:\deploy" -ItemType Directory -Force
+          Copy-Item "$env:GITHUB_WORKSPACE\Model.bim" "C:\deploy\Model.bim" -Force
+          & $te "C:\deploy\Model.bim" -deploy $server $db -O -C -P
+          Write-Host "Deploy a QA exitoso"
