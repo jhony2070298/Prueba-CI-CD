@@ -8,16 +8,45 @@ jobs:
   deploy-qa:
     runs-on: self-hosted
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+
+      - name: Checkout manual
+        shell: powershell
+        run: |
+          $repo = "C:\deploy\Prueba-CI-CD"
+
+          if (Test-Path "$repo\.git") {
+            cd $repo
+            git fetch origin
+            git checkout $env:GITHUB_HEAD_REF
+            git pull origin $env:GITHUB_HEAD_REF
+          } else {
+            New-Item -Path $repo -ItemType Directory -Force | Out-Null
+            git clone https://github.com/${{ github.repository }}.git $repo
+            cd $repo
+            git checkout $env:GITHUB_HEAD_REF
+          }
+
+          Write-Host "Rama: $env:GITHUB_HEAD_REF"
+          Write-Host "Commit: $(git rev-parse HEAD)"
+
+      - name: Verificar Model.bim
+        shell: powershell
+        run: |
+          $bim = "C:\deploy\Prueba-CI-CD\Model.bim"
+          if (-not (Test-Path $bim)) { throw "Model.bim no encontrado" }
+          Write-Host "Model.bim encontrado OK"
 
       - name: Deploy to QA
         shell: powershell
         run: |
-          $te = "C:\Program Files (x86)\Tabular Editor\TabularEditor.exe"
-          $server = "${{ secrets.QA_SERVER }}"
-          $db = "${{ secrets.QA_DB_NAME }}"
-          New-Item -Path "C:\deploy" -ItemType Directory -Force
-          Copy-Item "$env:GITHUB_WORKSPACE\Model.bim" "C:\deploy\Model.bim" -Force
+          $te     = 'C:\Program Files (x86)\Tabular Editor\TabularEditor.exe'
+          $server = '${{ secrets.QA_SERVER }}'
+          $db     = '${{ secrets.QA_DB_NAME }}'
+
+          if (-not (Test-Path $te)) { throw "Tabular Editor no encontrado en $te" }
+
+          Copy-Item "C:\deploy\Prueba-CI-CD\Model.bim" "C:\deploy\Model.bim" -Force
+
           & $te "C:\deploy\Model.bim" -deploy $server $db -O -C -P
+
           Write-Host "Deploy a QA exitoso"

@@ -138,6 +138,34 @@
           {
             "name": "Promedio Edad",
             "expression": " AVERAGE(GH_Empleados[Edad])"
+          },
+          {
+            "name": "Total Hijos",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
+          },
+          {
+            "name": "Total Hijos Nuevo",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
+          },
+          {
+            "name": "Total Hijos 3",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
+          },
+          {
+            "name": "Total Hijos 4",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
+          },
+          {
+            "name": "Total Hijos 5",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
+          },
+          {
+            "name": "Total Hijos 6",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
+          },
+          {
+            "name": "Total Hijos 7",
+            "expression": " SUM(GH_Empleados[NumeroHijos])"
           }
         ],
         "annotations": [
