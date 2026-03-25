@@ -1,0 +1,161 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "es-CO",
+    "dataSources": [
+      {
+        "name": "SqlServer DESKTOP-1B6KKKT dbMidasoftCopia",
+        "connectionString": "Provider=SQLOLEDB;Data Source=DESKTOP-1B6KKKT;Initial Catalog=dbMidasoftCopia;Integrated Security=SSPI;Persist Security Info=false",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "GH_Empleados",
+        "columns": [
+          {
+            "name": "CodigoEmpleado",
+            "dataType": "string",
+            "sourceColumn": "CodigoEmpleado",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Apellido",
+            "dataType": "string",
+            "sourceColumn": "Apellido",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Nombre",
+            "dataType": "string",
+            "sourceColumn": "Nombre",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "DocumentoIdentidad",
+            "dataType": "string",
+            "sourceColumn": "DocumentoIdentidad",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Sexo",
+            "dataType": "string",
+            "sourceColumn": "Sexo",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FechaNacimiento",
+            "dataType": "string",
+            "sourceColumn": "FechaNacimiento",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Edad",
+            "dataType": "int64",
+            "sourceColumn": "Edad",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "NumeroHijos",
+            "dataType": "int64",
+            "sourceColumn": "NumeroHijos",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "EstadoCivil",
+            "dataType": "string",
+            "sourceColumn": "EstadoCivil",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FechaIngreso",
+            "dataType": "string",
+            "sourceColumn": "FechaIngreso",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "CodigoOficio",
+            "dataType": "string",
+            "sourceColumn": "CodigoOficio",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Oficio",
+            "dataType": "string",
+            "sourceColumn": "Oficio",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "CodigoDivision",
+            "dataType": "string",
+            "sourceColumn": "CodigoDivision",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Division",
+            "dataType": "string",
+            "sourceColumn": "Division",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "RangoEdades",
+            "dataType": "string",
+            "sourceColumn": "RangoEdades",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "CategoriaJubilacion",
+            "dataType": "string",
+            "sourceColumn": "CategoriaJubilacion",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "CiudadTrabaja",
+            "dataType": "string",
+            "sourceColumn": "CiudadTrabaja",
+            "sourceProviderType": "Char"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "GH_Empleados",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[GH_Empleados].*   FROM [dbo].[GH_Empleados] ",
+              "dataSource": "SqlServer DESKTOP-1B6KKKT dbMidasoftCopia"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[GH_Empleados].*   FROM [dbo].[GH_Empleados] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "GH_Empleados"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}
